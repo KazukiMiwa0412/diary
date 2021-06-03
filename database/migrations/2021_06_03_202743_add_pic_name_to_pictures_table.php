@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDiariesTable extends Migration
+class AddPicNameToPicturesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,8 @@ class CreateDiariesTable extends Migration
      */
     public function up()
     {
-        Schema::create('diaries', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('title');
-            $table->text('text');
-            $table->date('date');
-            $table->integer('user_id');
-            $table->timestamps();
+        Schema::table('pictures', function (Blueprint $table) {
+            $table->string('pic_name');  //カラム追加
         });
     }
 
@@ -30,6 +25,8 @@ class CreateDiariesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('diaries');
+        Schema::table('pictures', function (Blueprint $table) {
+            $table->dropColumn('pic_name');  //カラムの削除
+        });
     }
 }
