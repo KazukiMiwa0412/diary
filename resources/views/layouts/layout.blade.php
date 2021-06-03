@@ -125,6 +125,25 @@
                 <label for="menu-btn-check" class="menu-btn"><span></span></label>
                 <div class="menu-content">
                     <ul>
+                        <li>
+                            <h2 class="login_user">{{ Auth::user()->name }}</h2>
+                        </li>
+                        <li>
+                            <a href="{{ route('diaries.index') }}">topへ</a>
+                        </li>
+                        <li>
+                            <div class="" aria-labelledby="navbarDropdown">
+                                <a class="" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                    {{ __('ログアウト') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>

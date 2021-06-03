@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Picture;
+use Illuminate\Support\Facades\Auth;
 
 class PictureController extends Controller
 {
@@ -42,15 +43,14 @@ class PictureController extends Controller
         // FileImageをインスタンス化(実体化)します
         $data = new Picture;
         // 登録する項目に必要な値を代入します
-        $data->user_id = 1;
+        $data->diaries_id = $request->diary_id;
         $data->pic_name = $request->pic_name;
         $data->file_name = $filename;
         // データベースに保存します
-        dd($data);
         $data->save();
 
         // 登録後/fileにリダイレクトします その際にフラッシュメッセージを渡します
-        return redirect(route('diaries.show',$request->diary_id))->with(['picture'=>$data]);
+        return redirect(route('diaries.show',$request->diary_id));
     }
 
     /**

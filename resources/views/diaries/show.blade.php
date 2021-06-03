@@ -40,12 +40,11 @@
             <p>{{ $diary->date }}</p>
         </div>
         
-        @if(isset($picture))
+        @foreach ($diary->pictures as $picture)
             <div class="picture">
                 <img src="{{ '../storage/image/' . $picture->file_name }}"  width="128" height="128">
-                <p><a href="{{ route('products.show',$picture->id) }}">{{ $picture -> pic_name }}</a></p>
             </div>
-        @endif
+        @endforeach
         
         <p class="edit"><a href="{{ route('diaries.edit',$diary->id) }}">編集</a></p>
         <td>

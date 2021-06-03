@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddPicNameToPicturesTable extends Migration
+class AddFileNameToPicturesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class AddPicNameToPicturesTable extends Migration
     public function up()
     {
         Schema::table('pictures', function (Blueprint $table) {
-            $table->string('pic_name');
-            $table->string('file_name');
+            $table->string('file_name');  //カラム追加
         });
     }
 
@@ -27,8 +26,7 @@ class AddPicNameToPicturesTable extends Migration
     public function down()
     {
         Schema::table('pictures', function (Blueprint $table) {
-            $table->dropColumn('pic_name');  //カラムの削除
-            $table->dropColumn('file_name');
+            $table->dropColumn('file_name');  //カラムの削除
         });
     }
 }

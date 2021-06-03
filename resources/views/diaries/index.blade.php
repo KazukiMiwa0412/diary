@@ -37,6 +37,11 @@
                 <h3>{{ $diary->user_id }}</h3>
                 <p class='body'>{{ $diary->text }}</p>
                 <p>{{ $diary->date }}</p>
+                @foreach ($diary->pictures as $picture)
+                    <div class="picture">
+                        <img src="{{ '../storage/image/' . $picture->file_name }}"  width="128" height="128">
+                    </div>
+                @endforeach
             </div>
         @endforeach 
         <h1><a href="{{ route('diaries.create') }}">新規作成</a></h1>

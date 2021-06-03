@@ -22,7 +22,7 @@ class Diary extends Model
     }
     
     public function pictures(){
-        return $this->hasMany(\App\Picture::class);
+        return $this->hasMany(\App\Picture::class,'diaries_id','id');
     }
     public function user()
     {

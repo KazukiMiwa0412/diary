@@ -18,6 +18,7 @@ class DiaryController extends Controller
     public function index(Diary $diary)
     {
         $diary=Diary::where('user_id',Auth::user()->id)->paginate(5);
+        
         return view('diaries.index')->with(['diaries'=> $diary]);
     }
 
@@ -57,6 +58,7 @@ class DiaryController extends Controller
     public function show($id)
     {
         $diary = Diary::find($id);
+        
         return view('diaries.show')->with(['diary'=>$diary]);
     }
 
