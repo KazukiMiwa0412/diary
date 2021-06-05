@@ -40,11 +40,13 @@
             <p>{{ $diary->date }}</p>
         </div>
         
-        @foreach ($diary->pictures as $picture)
-            <div class="picture">
-                <img src="{{ '../storage/image/' . $picture->file_name }}"  width="128" height="128">
-            </div>
-        @endforeach
+        <div class="row">
+            @foreach ($diary->pictures as $picture)
+                <div class="col-6 mb-3">
+                    <img src="{{ '../storage/image/' . $picture->file_name }}"  width="128" height="128">
+                </div>
+            @endforeach
+        </div>
         
         <p class="edit"><a href="{{ route('diaries.edit',$diary->id) }}">編集</a></p>
         <td>

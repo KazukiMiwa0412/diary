@@ -44,7 +44,7 @@ class DiaryController extends Controller
         $diary->title = $request['diary']['title'];
         $diary->text = $request['diary']['text'];
         $diary->user_id =$request['diary']['user_id'];
-        $diary->date = date("Y/m/d H:i:s");
+        $diary->date = $request['diary']['date'];
         $diary->save();
         return redirect(route('diaries.show',$diary->id));
     }
