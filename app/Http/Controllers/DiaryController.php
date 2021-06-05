@@ -38,7 +38,7 @@ class DiaryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request , Diary $diary)
+    public function store(Request $request , Diary $diary ,$picture_controller_path='App\Http\Controllers\PictureController')
     {
         
         $diary->title = $request['diary']['title'];
@@ -47,13 +47,17 @@ class DiaryController extends Controller
         $diary->date = $request['diary']['date'];
         $diary->save();
         
-        $array=array(
-            "img" =>$request['pic'],
-            "diaries_id"=>$diary->id,
-        );
-        
-        $called = app()->make('App\Http\Controllers\PictureController');
-        $called->store($array);
+        $files = $request['pic'];
+        foreach($files as $file){
+            
+            $array=array(
+                "img" =>$file,
+                "diaries_id"=>$diary->id,
+            );
+            
+            $called = app()->make($picture_controller_path);
+            $called->store($array);
+        }
         
         return redirect(route('diaries.show',$diary->id));
     }

@@ -41,7 +41,7 @@
     </head>
     <body>
         <h1>日記作成</h1>
-        <form  action="{{ route("diaries.store") }}" method="POST" enctype="multipart/form-data">
+        <form  action="{{ route("diaries.store") }}" method="POST" enctype="multipart/form-data" autocomplete="off">
             @csrf
             <div>
                 <div class="form-group">
@@ -62,9 +62,9 @@
                 <textarea class="form-control" name="diary[text]" placeholder="投稿" rows="10"></textarea>
                 <p class="body__error" style="color:red">{{ $errors->first('diary.text') }}</p>
             </div>
-            <input id="dummy_file" type="text" name="pic[pic_name]">
+            <input id="dummy_file" type="text" name="pic_name">
             <label for="filename" >
-                <span class="browse_btn">アップロード</span><input type="file" id="filename" name="pic[img]" multiple />
+                <span class="browse_btn">アップロード</span><input type="file" id="filename" name="pic[]" multiple />
             </label>
             <input type="hidden" name="diary[user_id]" value="{{ Auth::user()->id }}">
             <input type="submit" value="保存"/>
@@ -79,16 +79,20 @@
             showAnim: 'show'
         });
         
-        $('#filename').on("change", function() {
-            var file = this.files[0];
-            if(file != null) {
-                document.getElementById("dummy_file").value = file.name;
-            }
-        });
+        
         $('#filename').on('change', function (e) {
+            var fileList = e.files;
+            console.log(fileList);
             var fileCount =e.target.files.length;
+            let fileName = document.getElementById("dummy_file").value;
+            console.log(fileName);
             for ( var i = 0; i < fileCount; i++ ){
+                //ファイル名表示
                 var file = e.target.files[i];
+                fileName += file.name;
+                fileName += " ";
+                
+                //画像を表示
                 var blobUrl = window.URL.createObjectURL(file);
                 var img_element = document.createElement('img');
                 img_element.src = blobUrl;
@@ -97,7 +101,9 @@
                 img_element.style.margin = "20px";
                 var content_area = document.getElementById("content_area");
                 content_area.appendChild(img_element);
+                
             }
+            document.getElementById("dummy_file").value = fileName;
         });
     </script>
 </html>

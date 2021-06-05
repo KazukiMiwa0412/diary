@@ -39,15 +39,14 @@ class PictureController extends Controller
         
         
         // $request->imgはformのinputのname='img'の値です
-        $path = $request['img']['img']->store($dir_path);
-        
+        $path = $request['img']->store($dir_path);
         // パスから、最後の「ファイル名.拡張子」の部分だけ取得します 例)sample.jpg
         $filename = basename($path);
         // FileImageをインスタンス化(実体化)します
         $data = new Picture;
         // 登録する項目に必要な値を代入します
         $data->diaries_id = $request['diaries_id'];
-        $data->pic_name = $request['img']['pic_name'];
+        $data->pic_name = $request['img']->getClientOriginalName();
         $data->file_name = $filename;
         // データベースに保存します
         $data->save();
