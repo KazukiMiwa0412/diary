@@ -46,6 +46,15 @@ class DiaryController extends Controller
         $diary->user_id =$request['diary']['user_id'];
         $diary->date = $request['diary']['date'];
         $diary->save();
+        
+        $array=array(
+            "img" =>$request['pic'],
+            "diaries_id"=>$diary->id,
+        );
+        
+        $called = app()->make('App\Http\Controllers\PictureController');
+        $called->store($array);
+        
         return redirect(route('diaries.show',$diary->id));
     }
 

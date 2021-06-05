@@ -41,7 +41,7 @@
     </head>
     <body>
         <h1>日記作成</h1>
-        <form  action="{{ route("diaries.store") }}" method="POST">
+        <form  action="{{ route("diaries.store") }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div>
                 <div class="form-group">
@@ -62,25 +62,15 @@
                 <textarea class="form-control" name="diary[text]" placeholder="投稿" rows="10"></textarea>
                 <p class="body__error" style="color:red">{{ $errors->first('diary.text') }}</p>
             </div>
+            <input id="dummy_file" type="text" name="pic[pic_name]">
+            <label for="filename" >
+                <span class="browse_btn">アップロード</span><input type="file" id="filename" name="pic[img]" multiple />
+            </label>
             <input type="hidden" name="diary[user_id]" value="{{ Auth::user()->id }}">
             <input type="submit" value="保存"/>
         </form>
-        <div class="picture">
-            <h1>ファイルアップロード</h1>
-            @if (session('success'))
-                <p>{{ session('success') }}</p>
-            @endif
-            <form action="{{ route('pictures.store') }}" method="post" enctype="multipart/form-data">
-                @csrf
-                <input id="dummy_file" type="text" >
-                <label for="filename" >
-                    <span class="browse_btn">アップロード</span><input type="file" id="filename"  multiple />
-                </label>
-                <div id="content_area" class="mx-auto"></div>
-                <br>
-                <input type="submit" value="送信">
-            </form>
-        </div>
+        
+        <div id="content_area" class="mx-auto"></div>
         <div class="back">[<a href="{{ route("diaries.index") }}">back</a>]</div>
     </body>
     <script type="text/javascript">
