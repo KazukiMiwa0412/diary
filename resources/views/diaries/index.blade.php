@@ -77,7 +77,7 @@
                     </div>
                 </div>
             @endforeach 
-            <button type="button" id="create_btn" class="btn btn-primary rounded-circle p-0" ><i class="fa fa-pencil fa-2x"></i> </button>
+            <button type="button" id="create_btn" class="btn btn-primary rounded-circle p-0" onclick="location.href='{{ route('diaries.create') }}'"><i class="fa fa-pencil fa-2x"></i></button>
             
             <div class='paginate'>
                 @if(isset($search_query))
