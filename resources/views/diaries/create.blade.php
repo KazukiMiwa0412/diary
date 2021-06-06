@@ -47,26 +47,28 @@
                 <div class="form-group">
                     <h2>日付</h2>
                     <i class="fa fa-calendar fa-lg "></i> 
-                    <input name="diary[date]" type="text" id="datepicker" placeholder="日付を選択してください" >
+                    <input name="diary[date]" type="text" id="datepicker" placeholder="日付を選択してください" class="w-25 mx-auto" >
                   </div>
             </div>
             <div class="title">
                 <h2>Title</h2>
                 <i class="fa fa-pencil fa-lg"></i> 
-                <input type="text" name="diary[title]" placeholder="タイトル"/>
+                <input type="text" name="diary[title]" placeholder="タイトル" class="w-25 mx-auto"/>
                 
                 <p class="title__error" style="color:red">{{ $errors->first('diary.title') }}</p>
             </div>
             <div class="text">
                 <h2>本文</h2>
-                <textarea class="form-control" name="diary[text]" placeholder="投稿" rows="10"></textarea>
+                <textarea class="form-control w-25 mx-auto" name="diary[text]" placeholder="" rows="10"></textarea>
                 <p class="body__error" style="color:red">{{ $errors->first('diary.text') }}</p>
             </div>
+            <i class="fas fa-paperclip"></i>
             <input id="dummy_file" type="text" name="pic_name">
             <label for="filename" >
                 <span class="browse_btn">アップロード</span><input type="file" id="filename" name="pic[]" multiple />
             </label>
             <input type="hidden" name="diary[user_id]" value="{{ Auth::user()->id }}">
+            <br>
             <input type="submit" value="保存"/>
         </form>
         
@@ -76,7 +78,9 @@
     <script type="text/javascript">
         $('#datepicker').datepicker({
             language:'ja',
-            showAnim: 'show'
+            showAnim: 'show',
+            autoclose: true,
+            todayHighlight : true
         });
         
         

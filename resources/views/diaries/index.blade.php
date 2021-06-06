@@ -15,6 +15,11 @@
                 padding:20px;
                 margin-top:10px;
             }
+            .date{
+                margin:20px;
+                padding:30px;
+                border:solid;
+            }
             #create_btn{
                 width:5rem;
                 height:5rem;
@@ -64,11 +69,15 @@
             @endisset
             @foreach ($diaries as $diary)
                 <div class='diary'>
-                    <h3><a href="{{ route('diaries.show' ,$diary->id)}}">{{ $diary->title }}</a></h3>
-                    <h3>{{ $diary->user_id }}</h3>
-                    <p class=''>{{ $diary->text }}</p>
-                    <p>{{ substr($diary->date,5,2)}}/{{substr($diary->date,8,2) }}</p>
-                    <div class="overflow-auto d-flex justify-content-center" style="height:150px;">
+                    <div class="d-flex">
+                        <h2 class="date">{{ substr($diary->date,5,2)}}/{{substr($diary->date,8,2) }}</h2>
+                        <div class="d-flex flex-column">
+                            <h3><a href="{{ route('diaries.show' ,$diary->id)}}">{{ $diary->title }}</a></h3>
+                            <p class=''>{{ $diary->text }}</p>
+                        </div>
+                        
+                    </div>
+                    <div class="overflow-auto d-flex " style="height:150px;">
                         @foreach ($diary->pictures as $picture)
                             <div class="picture mx-2">
                                 <img src="{{ '../storage/image/' . $picture->file_name }}"  width="128" height="128">

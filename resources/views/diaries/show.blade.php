@@ -26,9 +26,9 @@
                 <p>{{ $diary->date }}</p>
             </div>
             
-            <div class="w-50 mx-auto row">
+            <div class="w-50 mx-auto overflow-auto">
                 @foreach ($diary->pictures as $picture)
-                    <div class="d-inline-flex col-6">
+                    <div class="d-inline-flex">
                         <img class="mx-auto" src="{{ '../storage/image/' . $picture->file_name }}"  width="128" height="128">
                     </div>
                 @endforeach

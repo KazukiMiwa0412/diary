@@ -83,7 +83,7 @@ class DiaryController extends Controller
      */
     public function edit($id)
     {
-        $diary = Diary;
+        $diary = Diary::find($id);
         
         return view('diaries.edit')->with(['diary'=>$diary]);
         
@@ -96,10 +96,20 @@ class DiaryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Diary $diary)
+    public function update(Request $request, Diary $diary,$picture_controller_path='App\Http\Controllers\PictureController')
     {
         
         $diary->fill($request['diary'])->save();
+        $files = $request['pic'];
+        foreach($files as $file){
+            
+            $array=array(
+                "img" =>$file,
+                "diaries_id"=>$diary->id,
+            );
+            $called = app()->make($picture_controller_path);
+            $called->store($array);
+        }
         return redirect(route('diaries.show', $diary->id));
     }
 
