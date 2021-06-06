@@ -9,18 +9,13 @@
         <title>Laravel</title>
         <!-- Styles -->
         <style>
-            .text textarea {
-                background-image:
-                    repeating-linear-gradient(
-                    #fff,
-                    #fff calc(1.5rem - 1px),
-                    #ced4da calc(1.5rem - 1px),
-                    #ced4da 1.5rem,
-                    #fff 1.5rem
-                    );
-                background-origin: content-box;
-                background-clip: content-box;
-                background-attachment: local;
+            @media screen { #filename { display: none; } }
+            
+            .browse_btn {
+                background-color: #d3d3d3;
+                padding: 6px;
+                border-radius: 8px;
+                font-weight: bold;
             }
             @media screen { #filename { display: none; } }
             
@@ -34,6 +29,32 @@
             #content_area img{
                 margin:20px;
             }
+            
+            #back_btn{
+                width:5rem;
+                height:5rem;
+                display: inline-block;
+                line-height: 30px;
+                text-align: center;
+                box-shadow: 0 5px 0 black;
+                border-radius: 10px;
+                cursor: pointer;
+                position: fixed;
+                font-size:20px;
+                font-weight:bold;
+                right: 2%;
+                bottom:5%;
+                padding: 6px 40px;
+            }
+            #back_btn:hover{
+                opacity: 0.9;
+            }
+            #back_btn:active{
+                opacity: 0.5;
+                transform: translateY(5px);
+                box-shadow: none;
+            }
+            
         </style>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
@@ -42,6 +63,7 @@
         
     </head>
     <body>
+        
         <h1>編集画面</h1>
         <form action="{{ route('diaries.update' , $diary->id) }}" method="POST" enctype="multipart/form-data" autocomplete="off">
             @csrf
@@ -69,14 +91,14 @@
             <label for="filename" >
                 <span class="browse_btn">アップロード</span><input type="file" id="filename" name="pic[]" multiple />
             </label>
-            <input type="submit" value="更新"/>
+            <button type="submit" id="back_btn" class="btn btn-secondary rounded-circle p-0" onclick="location.href='{{ route('diaries.show' , $diary->id) }}'">更新</button>
         </form>
         <div id="content_area" class="d-inline-flex w-50 overflow-auto">
             @foreach ($diary->pictures as $picture)
-                <img class="" src="{{ '/storage/image/' . $picture->file_name }}"  width="128" height="128" >
+                <img class="mx-auto" src="{{ '/storage/image/' . $picture->file_name }}"  width="128" height="128" >
             @endforeach
         </div>
-        <div class="back">[<a href="{{ route('diaries.show' , $diary->id) }}">back</a>]</div>
+        
         
         
     </body>
@@ -107,6 +129,7 @@
                 img_element.src = blobUrl;
                 img_element.width = 128; // 横サイズ（px）
                 img_element.height = 128; // 縦サイズ（px）
+                img_element.style.margin = "auto";
                 var content_area = document.getElementById("content_area");
                 content_area.appendChild(img_element);
                 

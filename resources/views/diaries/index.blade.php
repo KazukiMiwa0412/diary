@@ -30,8 +30,8 @@
                 border-radius: 10px;
                 cursor: pointer;
                 position: fixed;
-                bottom: 10px; 
-                right: 30px;
+                bottom: 5%; 
+                right: 1%;
                 padding: 6px 40px;
             }
             #create_btn:hover{

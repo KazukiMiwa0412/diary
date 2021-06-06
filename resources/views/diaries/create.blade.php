@@ -11,17 +11,22 @@
         <!-- Styles -->
         <style>
             .text textarea {
-                background-image:
-                    repeating-linear-gradient(
-                    #fff,
-                    #fff calc(1.5rem - 1px),
-                    #ced4da calc(1.5rem - 1px),
-                    #ced4da 1.5rem,
-                    #fff 1.5rem
-                    );
-                background-origin: content-box;
-                background-clip: content-box;
-                background-attachment: local;
+                font-size: 15pt;
+                line-height: 31px;
+                padding: 31px;
+            
+                /* テキストエリアに陰をつける */
+                box-shadow: 0.2em 0.2em 0.5em black;
+            
+                /* 罫線描画（各ブラウザ対応）*/
+                background-image: -webkit-linear-gradient(left, white 10px, transparent 10px), -webkit-linear-gradient(right, white 10px, transparent 10px), -webkit-linear-gradient(white 30px, #ccc 30px, #ccc 31px, white 31px);
+                background-image: -moz-linear-gradient(left, white 10px, transparent 10px), -moz-linear-gradient(right, white 10px, transparent 10px), -moz-linear-gradient(white 30px, #ccc 30px, #ccc 31px, white 31px);
+                background-image: -ms-linear-gradient(left, white 10px, transparent 10px), -ms-linear-gradient(right, white 10px, transparent 10px), -ms-linear-gradient(white 30px, #ccc 30px, #ccc 31px, white 31px);
+                background-image: -o-linear-gradient(left, white 10px, transparent 10px), -o-linear-gradient(right, white 10px, transparent 10px), -o-linear-gradient(white 30px, #ccc 30px, #ccc 31px, white 31px);
+                background-image: linear-gradient(left, white 10px, transparent 10px), linear-gradient(right, white 10px, transparent 10px), linear-gradient(white 30px, #ccc 30px, #ccc 31px, white 31px);
+                background-size: 100% 100%, 100% 100%, 100% 31px;
+                /* 淡いグレーで枠線を囲む */
+                border: 1px solid #ccc;
             }
             @media screen { #filename { display: none; } }
             
@@ -69,11 +74,11 @@
             </label>
             <input type="hidden" name="diary[user_id]" value="{{ Auth::user()->id }}">
             <br>
-            <input type="submit" value="保存"/>
+            <input type="submit" class="btn btn-outline-primary" value="保存"/>
         </form>
         
         <div id="content_area" class="mx-auto"></div>
-        <div class="back">[<a href="{{ route("diaries.index") }}">back</a>]</div>
+        <a class="btn btn-primary  active" role="button" href="{{ route("diaries.index") }}" style="margin-top:30px;">back</a>
     </body>
     <script type="text/javascript">
         $('#datepicker').datepicker({
