@@ -15,7 +15,7 @@
                 padding:20px;
                 margin-top:10px;
             }
-            .date{
+            .date {
                 margin:20px;
                 padding:30px;
                 border:solid;
@@ -50,6 +50,7 @@
         
     </head>
     <body>
+        
         <div class="w-50 mx-auto">
             <form action="{{ route('diaries.search') }}" method="get" class="w-50 mx-auto">
                 <div class="input-group">
@@ -70,12 +71,14 @@
             @foreach ($diaries as $diary)
                 <div class='diary'>
                     <div class="d-flex">
-                        <h2 class="date">{{ substr($diary->date,5,2)}}/{{substr($diary->date,8,2) }}</h2>
+                        <div class="date">
+                            <h2 class="time">{{ substr($diary->date,5,2)}}/{{substr($diary->date,8,2) }}</h2>
+                            <p class="year">{{ substr($diary->date,0,4) }}</p>
+                        </div>
                         <div class="d-flex flex-column">
                             <h3><a href="{{ route('diaries.show' ,$diary->id)}}">{{ $diary->title }}</a></h3>
-                            <p class=''>{{ $diary->text }}</p>
+                            <p class='overflow-auto' style="height:150px;">{{ $diary->text }}</p>
                         </div>
-                        
                     </div>
                     <div class="overflow-auto d-flex " style="height:150px;">
                         @foreach ($diary->pictures as $picture)
@@ -96,8 +99,8 @@
                 @endif
             </div>
         </div>
+        
     </body>
-    
 </html>
 
 @endsection

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Picture;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PictureController extends Controller
 {
@@ -95,8 +96,11 @@ class PictureController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id,$dir_path='public/image/')
     {
-        //
+        $picture = Picture::find($id);
+        $path= $dir_path.($picture->file_name);
+        Storage::delete($path);
+        $picture->delete();
     }
 }

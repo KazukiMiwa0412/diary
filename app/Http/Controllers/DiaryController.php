@@ -16,8 +16,9 @@ class DiaryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Diary $diary)
-    {
-        $diary=Diary::where('user_id',Auth::user()->id)->paginate(5);
+    {   
+        
+        $diary=Diary::where('user_id',Auth::user()->id)->with(['pictures','user'])->orderBy('created_at', 'DESC')->paginate(10);
         
         return view('diaries.index')->with(['diaries'=> $diary]);
     }
@@ -70,8 +71,8 @@ class DiaryController extends Controller
      */
     public function show($id)
     {
-        $diary = Diary::find($id);
         
+        $diary = Diary::with(['pictures','user'])->find($id);
         return view('diaries.show')->with(['diary'=>$diary]);
     }
 
@@ -83,7 +84,7 @@ class DiaryController extends Controller
      */
     public function edit($id)
     {
-        $diary = Diary::find($id);
+        $diary = Diary::with(['pictures','user'])->find($id);
         
         return view('diaries.edit')->with(['diary'=>$diary]);
         
@@ -101,14 +102,16 @@ class DiaryController extends Controller
         
         $diary->fill($request['diary'])->save();
         $files = $request['pic'];
-        foreach($files as $file){
-            
-            $array=array(
-                "img" =>$file,
-                "diaries_id"=>$diary->id,
-            );
-            $called = app()->make($picture_controller_path);
-            $called->store($array);
+        if(isset($files)){
+            foreach($files as $file){
+                
+                $array=array(
+                    "img" =>$file,
+                    "diaries_id"=>$diary->id,
+                );
+                $called = app()->make($picture_controller_path);
+                $called->store($array);
+            }
         }
         return redirect(route('diaries.show', $diary->id));
     }
@@ -119,9 +122,17 @@ class DiaryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id ,$picture_controller_path='App\Http\Controllers\PictureController')
     {
-        $diary = Diary::find($id)->delete();
+        $diary = Diary::with('pictures')->find($id);
+        $files = $diary->pictures;
+        if(isset($files)){
+            foreach($files as $file){
+                $called = app()->make($picture_controller_path);
+                $called->destroy($file->id);
+            }
+        }
+        $diary->delete();
         return redirect(route('diaries.index'));
     }
     

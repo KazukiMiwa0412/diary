@@ -18,6 +18,7 @@
         
     </head>
     <body>
+        
         <div class="w-50 mx-auto">
             <div class='diary'>
                 <h3>{{ $diary->title }}</h3>
