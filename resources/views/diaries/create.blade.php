@@ -32,11 +32,67 @@
             
             .browse_btn {
                 background-color: #d3d3d3;
-                padding: 6px;
+                padding: 6px 40px;
                 border-radius: 8px;
                 font-weight: bold;
+                font-size:25px;
             }
-            
+            #back_btn{
+                width:5rem;
+                height:5rem;
+                display: inline-block;
+                line-height: 30px;
+                text-align: center;
+                box-shadow: 0 5px 0 black;
+                border-radius: 10px;
+                cursor: pointer;
+                position: fixed;
+                left: 2%;
+                padding: 6px 40px;
+            }
+            #back_btn:hover{
+                opacity: 0.9;
+            }
+            #back_btn:active{
+                opacity: 0.5;
+                transform: translateY(5px);
+                box-shadow: none;
+            }
+            #store_btn{
+                width:5rem;
+                height:5rem;
+                display: inline-block;
+                line-height: 30px;
+                text-align: center;
+                box-shadow: 0 5px 0 black;
+                border-radius: 10px;
+                cursor: pointer;
+                position: fixed;
+                bottom: 5%; 
+                right: 1%;
+                padding: 6px 40px;
+            }
+            #store_btn:hover{
+                opacity: 0.9;
+            }
+            #store_btn:active{
+                opacity: 0.5;
+                transform: translateY(5px);
+                box-shadow: none;
+            }
+            #store_discription{
+                position: fixed;
+                font-size:20px;
+                display:none;
+                right: 8%;
+                bottom:3%;
+                border:solid;
+                border-width: thin;
+                padding:10px 80px;
+                background-color:#CCFFFF;
+                opacity: 0.7;
+                z-index: -1; 
+            }
             </style>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
@@ -45,6 +101,7 @@
         
     </head>
     <body>
+        <button type="button" id="back_btn" class="btn btn-primary rounded-circle p-0" onclick="location.href='{{ route("diaries.index") }}'"><i class="fas fa-arrow-left fa-2x"></i></button>
         <h1>日記作成</h1>
         <form  action="{{ route("diaries.store") }}" method="POST" enctype="multipart/form-data" autocomplete="off">
             @csrf
@@ -53,32 +110,38 @@
                     <h2>日付</h2>
                     <i class="fa fa-calendar fa-lg "></i> 
                     <input name="diary[date]" type="text" id="datepicker" placeholder="日付を選択してください" class="w-25 mx-auto" >
+                    <p class="title__error" style="color:red">{{ $errors->first('diary.date') }}</p>
                   </div>
             </div>
-            <div class="title">
-                <h2>Title</h2>
+            
+            <div class="title mb-5">
+                <h2>タイトル</h2>
                 <i class="fa fa-pencil fa-lg"></i> 
-                <input type="text" name="diary[title]" placeholder="タイトル" class="w-25 mx-auto"/>
-                
+                <input type="text" name="diary[title]" placeholder="タイトルを入力してください" class="w-25 mx-auto"/>
                 <p class="title__error" style="color:red">{{ $errors->first('diary.title') }}</p>
             </div>
-            <div class="text">
+            
+            <i class="fas fa-paperclip fa-2x"></i>
+            <input id="dummy_file" type="hidden" name="pic_name">
+            <label for="filename" >
+                <span class="browse_btn">画像アップロード</span><input type="file" id="filename" name="pic[]" multiple />
+            </label>
+            <div id="content_area" class="mx-auto"></div>
+            
+            <div class="text mt-3">
                 <h2>本文</h2>
                 <textarea class="form-control w-25 mx-auto" name="diary[text]" placeholder="" rows="10"></textarea>
                 <p class="body__error" style="color:red">{{ $errors->first('diary.text') }}</p>
             </div>
-            <i class="fas fa-paperclip"></i>
-            <input id="dummy_file" type="text" name="pic_name">
-            <label for="filename" >
-                <span class="browse_btn">アップロード</span><input type="file" id="filename" name="pic[]" multiple />
-            </label>
+            
             <input type="hidden" name="diary[user_id]" value="{{ Auth::user()->id }}">
-            <br>
-            <input type="submit" class="btn btn-outline-primary" value="保存"/>
+            
+            <button type="submit" id="store_btn" class="btn btn-primary rounded-circle p-0">
+                <i class="fas fa-plus fa-2x"></i>
+            </button>
+            <p id="store_discription">保存</p>
         </form>
         
-        <div id="content_area" class="mx-auto"></div>
-        <a class="btn btn-primary  active" role="button" href="{{ route("diaries.index") }}" style="margin-top:30px;">back</a>
     </body>
     <script type="text/javascript">
         $('#datepicker').datepicker({
@@ -94,7 +157,7 @@
             console.log(fileList);
             var fileCount =e.target.files.length;
             let fileName = document.getElementById("dummy_file").value;
-            console.log(fileName);
+            
             for ( var i = 0; i < fileCount; i++ ){
                 //ファイル名表示
                 var file = e.target.files[i];
@@ -105,8 +168,8 @@
                 var blobUrl = window.URL.createObjectURL(file);
                 var img_element = document.createElement('img');
                 img_element.src = blobUrl;
-                img_element.width = 128; // 横サイズ（px）
-                img_element.height = 128; // 縦サイズ（px）
+                img_element.width = 64; // 横サイズ（px）
+                img_element.height = 64; // 縦サイズ（px）
                 img_element.style.margin = "20px";
                 var content_area = document.getElementById("content_area");
                 content_area.appendChild(img_element);
@@ -114,6 +177,13 @@
             }
             document.getElementById("dummy_file").value = fileName;
         });
+        document.getElementById("store_btn").addEventListener("mouseover", function(){
+        	document.getElementById("store_discription").style.display = 'block';
+        }, false);
+        
+        document.getElementById("store_btn").addEventListener("mouseout", function(){
+        	document.getElementById("store_discription").style.display = 'none';
+        }, false);
     </script>
 </html>
 

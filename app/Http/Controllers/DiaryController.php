@@ -18,7 +18,7 @@ class DiaryController extends Controller
     public function index(Diary $diary)
     {   
         
-        $diary=Diary::where('user_id',Auth::user()->id)->with(['pictures','user'])->orderBy('created_at', 'DESC')->paginate(10);
+        $diary=Diary::where('user_id',Auth::user()->id)->with(['pictures','user'])->orderBy('date', 'DESC')->orderBy('updated_at', 'DESC')->paginate(10);
         
         return view('diaries.index')->with(['diaries'=> $diary]);
     }
@@ -42,6 +42,11 @@ class DiaryController extends Controller
     public function store(Request $request , Diary $diary ,$picture_controller_path='App\Http\Controllers\PictureController')
     {
         
+        $request->validate([
+            'diary.date'=>'required',
+            'diary.text'=>'required',
+            'diary.title'=>'required',
+        ]);
         $diary->title = $request['diary']['title'];
         $diary->text = $request['diary']['text'];
         $diary->user_id =$request['diary']['user_id'];
@@ -50,7 +55,6 @@ class DiaryController extends Controller
         
         $files = $request['pic'];
         foreach($files as $file){
-            
             $array=array(
                 "img" =>$file,
                 "diaries_id"=>$diary->id,
@@ -100,6 +104,11 @@ class DiaryController extends Controller
     public function update(Request $request, Diary $diary,$picture_controller_path='App\Http\Controllers\PictureController')
     {
         
+        $request->validate([
+            'diary.date'=>'required',
+            'diary.text'=>'required',
+            'diary.title'=>'required',
+        ]);
         $diary->fill($request['diary'])->save();
         $files = $request['pic'];
         if(isset($files)){

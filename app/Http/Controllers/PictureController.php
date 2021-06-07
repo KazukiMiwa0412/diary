@@ -41,6 +41,7 @@ class PictureController extends Controller
         
         // $request->imgはformのinputのname='img'の値です
         $path = $request['img']->store($dir_path);
+        
         // パスから、最後の「ファイル名.拡張子」の部分だけ取得します 例)sample.jpg
         $filename = basename($path);
         // FileImageをインスタンス化(実体化)します
@@ -99,8 +100,15 @@ class PictureController extends Controller
     public function destroy($id,$dir_path='public/image/')
     {
         $picture = Picture::find($id);
+        $previousUrl = app('url')->previous();
+        $previousAction = substr($previousUrl,-4);
+        $previousId = $picture->diaries_id;
         $path= $dir_path.($picture->file_name);
         Storage::delete($path);
         $picture->delete();
+        
+        if($previousAction=="edit"){
+            return redirect(route("diaries.edit",$previousId));
+        }
     }
 }

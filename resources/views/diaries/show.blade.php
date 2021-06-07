@@ -38,7 +38,7 @@
                 transform: translateY(5px);
                 box-shadow: none;
             }
-            #exit_btn{
+            #edit_btn{
                 bottom: 5%; 
                 right: 1%;
             }
@@ -66,6 +66,32 @@
                 opacity: 0.5;
                 transform: translateY(5px);
                 box-shadow: none;
+            }
+            #edit_discription{
+                position: fixed;
+                font-size:20px;
+                display:none;
+                right: 8%;
+                bottom:3%;
+                border:solid;
+                border-width: thin;
+                padding:10px 80px;
+                background-color:#CBFFD3;
+                opacity: 0.7;
+                z-index: -1; 
+            }
+            #delete_discription{
+                position: fixed;
+                font-size:20px;
+                display:none;
+                right: 8%;
+                bottom:18%;
+                border:solid;
+                border-width: thin;
+                padding:10px 80px;
+                background-color:#FFABCE;
+                opacity: 0.7;
+                z-index: -1; 
             }
         </style>
         <!-- Fonts -->
@@ -95,11 +121,13 @@
                 </div>
             @endif
             <div class="row w-25 mx-auto" id="btn_action">
-                <button type="button" id="exit_btn" class="btn btn-success rounded-circle p-0" onclick="location.href='{{ route('diaries.edit',$diary->id) }}'"><i class="far fa-edit fa-2x"></i></button>
+                <button type="button" id="edit_btn" class="btn btn-success rounded-circle p-0" onclick="location.href='{{ route('diaries.edit',$diary->id) }}'"><i class="far fa-edit fa-2x"></i></button>
+                <p id="edit_discription">編集</p>
                 <form action="{{ route('diaries.destroy',$diary->id ) }}" method="POST" class="col-6" name="deleteform">
                     @csrf
                     @method('DELETE')
                     <button type="submit" id="delete_btn" class="btn btn-danger rounded-circle p-0" onClick="delete_alert(event);return false;"><i class="far fa-trash-alt fa-2x"></i></button>
+                    <p id="delete_discription">削除</p>
                 </form>
             </div>
             
@@ -113,6 +141,21 @@
            
            document.deleteform.submit();
         };
+        document.getElementById("edit_btn").addEventListener("mouseover", function(){
+        	document.getElementById("edit_discription").style.display = 'block';
+        }, false);
+        
+        document.getElementById("edit_btn").addEventListener("mouseout", function(){
+        	document.getElementById("edit_discription").style.display = 'none';
+        }, false);
+        document.getElementById("delete_btn").addEventListener("mouseover", function(){
+        	document.getElementById("delete_discription").style.display = 'block';
+        }, false);
+        
+        document.getElementById("delete_btn").addEventListener("mouseout", function(){
+        	document.getElementById("delete_discription").style.display = 'none';
+        }, false);
+        
     </script>
 </html>
 @endsection

@@ -42,6 +42,19 @@
                 transform: translateY(5px);
                 box-shadow: none;
             }
+            #create_discription{
+                position: fixed;
+                font-size:20px;
+                display:none;
+                right: 8%;
+                bottom:3%;
+                border:solid;
+                border-width: thin;
+                padding:10px 80px;
+                background-color:#CCFFFF;
+                opacity: 0.7;
+                z-index: -1; 
+            }
         </style>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
@@ -54,7 +67,7 @@
         <div class="w-50 mx-auto">
             <form action="{{ route('diaries.search') }}" method="get" class="w-50 mx-auto">
                 <div class="input-group">
-                	<input type="text" class="form-control" placeholder="">
+                	<input type="text" name="search" class="form-control" placeholder="">
                 	<span class="input-group-btn">
                 		<button type="submit" class="btn btn-primary"><i class="fas fa-search pr-1"></i></button>
                 	</span>
@@ -90,7 +103,7 @@
                 </div>
             @endforeach 
             <button type="button" id="create_btn" class="btn btn-primary rounded-circle p-0" onclick="location.href='{{ route('diaries.create') }}'"><i class="fa fa-pencil fa-2x"></i></button>
-            
+            <p id="create_discription">新規作成</p>
             <div class='paginate'>
                 @if(isset($search_query))
                     {{ $diaries->appends(['search' =>$search_query])->links('vendor.pagination.sample-pagination') }}
@@ -101,6 +114,15 @@
         </div>
         
     </body>
+    <script type="text/javascript">
+        document.getElementById("create_btn").addEventListener("mouseover", function(){
+        	document.getElementById("create_discription").style.display = 'block';
+        }, false);
+        
+        document.getElementById("create_btn").addEventListener("mouseout", function(){
+        	document.getElementById("create_discription").style.display = 'none';
+        }, false);
+    </script>
 </html>
 
 @endsection
