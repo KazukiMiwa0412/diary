@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Picture;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PictureController extends Controller
 {
@@ -13,9 +14,9 @@ class PictureController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($i)
     {
-        //
+        dd($i);
     }
 
     /**
@@ -34,23 +35,26 @@ class PictureController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request , $dir_path='public/image')
+    public function store($request , $dir_path='public/image')
     {
+        
+        
         // $request->imgはformのinputのname='img'の値です
-        $path = $request->img->store($dir_path);
+        $path = $request['img']->store($dir_path);
+        
         // パスから、最後の「ファイル名.拡張子」の部分だけ取得します 例)sample.jpg
         $filename = basename($path);
         // FileImageをインスタンス化(実体化)します
         $data = new Picture;
         // 登録する項目に必要な値を代入します
-        $data->diaries_id = $request->diary_id;
-        $data->pic_name = $request->pic_name;
+        $data->diaries_id = $request['diaries_id'];
+        $data->pic_name = $request['img']->getClientOriginalName();
         $data->file_name = $filename;
         // データベースに保存します
         $data->save();
 
         // 登録後/fileにリダイレクトします その際にフラッシュメッセージを渡します
-        return redirect(route('diaries.show',$request->diary_id));
+        // return redirect(route('diaries.show',$request->diary_id));
     }
 
     /**
@@ -93,8 +97,18 @@ class PictureController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id,$dir_path='public/image/')
     {
-        //
+        $picture = Picture::find($id);
+        $previousUrl = app('url')->previous();
+        $previousAction = substr($previousUrl,-4);
+        $previousId = $picture->diaries_id;
+        $path= $dir_path.($picture->file_name);
+        Storage::delete($path);
+        $picture->delete();
+        
+        if($previousAction=="edit"){
+            return redirect(route("diaries.edit",$previousId));
+        }
     }
 }
