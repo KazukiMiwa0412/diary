@@ -93,6 +93,12 @@
                 opacity: 0.7;
                 z-index: -1; 
             }
+            #twitter_btn{
+                z-index:11;
+                position:fixed;
+                top:50px;
+                right:15%;
+            }
         </style>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
@@ -102,24 +108,29 @@
     </head>
     <body>
         <button type="button" id="back_btn" class="btn btn-primary rounded-circle p-0" onclick="location.href='{{ route("diaries.index") }}'"><i class="fas fa-arrow-left fa-2x"></i></button>
-        <div class="w-70 mx-auto">
+        <div id="twitter_btn">
+            <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-lang="ja" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+        <div class="mx-auto">
             <div class='diary w-50 mx-auto'>
                 <h1>タイトル</h1>
                 <p>{{ $diary->title }}</p>
                 <h1>日にち</h1>
                 <p>{{ $diary->date }}</p>
-                <h1>本文</h1>
+                @if(count($diary->pictures)>0)
+                    <h1>画像</h1>
+                    <div class="mx-auto overflow-auto d-flex p-3" style="border: 2mm ridge rgba(253,204,255,0.6);">
+                        @foreach ($diary->pictures as $picture)
+                            <div class="d-inline-flex mx-1">
+                                <img class="mx-auto" src="{{ '../storage/image/' . $picture->file_name }}"  width="128" height="128">
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+                <h1 class="mt-3">本文</h1>
                 <p class='text'>{{ $diary->text }}</p>
             </div>
-            @if(count($diary->pictures)>0)
-                <div class="w-50 mx-auto overflow-auto ">
-                    @foreach ($diary->pictures as $picture)
-                        <div class="d-inline-flex">
-                            <img class="mx-auto" src="{{ '../storage/image/' . $picture->file_name }}"  width="128" height="128">
-                        </div>
-                    @endforeach
-                </div>
-            @endif
+            
             <div class="row w-25 mx-auto" id="btn_action">
                 <button type="button" id="edit_btn" class="btn btn-success rounded-circle p-0" onclick="location.href='{{ route('diaries.edit',$diary->id) }}'"><i class="far fa-edit fa-2x"></i></button>
                 <p id="edit_discription">編集</p>

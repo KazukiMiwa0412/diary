@@ -33,8 +33,14 @@
             }
             
             #content_area p{
+                color:white;
+                background-color:red;
                 padding:10px;
                 border:solid;
+                border-width: thin;
+                margin:5px;
+                font-weight:900;
+                box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.8);
             }
             #update_btn{
                 width:5rem;
@@ -134,9 +140,9 @@
                 <?php $i=0; ?>
                 @foreach ($diary->pictures as $picture)
                 
-                <div class="div_{{ $i }}">
+                <div id="div_{{ $i }}">
                     <img class="" src="{{ '/storage/image/' . $picture->file_name }}"  width="64" height="64" style="margin:20px;">
-                    <p onClick="pic_delete(this);" class="delete_mark{{ $i }}">削除</p>
+                    <p onClick="pic_delete(this);" class="delete_mark{{ $i }}" name="delete_button">削除</p>
                 </div>
                 <?php $i++; ?>
                 @endforeach
@@ -160,7 +166,7 @@
                 <form action="{{ route('pictures.destroy',$picture->id) }}" method="POST"  name="deleteform" >
                     @csrf
                     @method('DELETE')
-                    <button type="submit" onClick="delete_alert(event);return false;" id="delete_button_{{ $i }}">削除</button>
+                    <button type="submit" onClick="delete_alert(event);return false;" id="delete_button_{{ $i }}" style="display:none;"></button>
                     <input type="hidden" value="{{ $diary->id }}" name="diaries_id">
                     <input type="hidden" value="diaries.edit" name="route">
                 </form>
@@ -188,7 +194,7 @@
                 
                 //divタグ追加
                 var div = document.createElement('div');
-                div.id = `div${childElementCount}`;
+                div.id = `div_${childElementCount}`;
                 var content_area = document.getElementById("content_area");
                 content_area.appendChild(div);
                 var div_area = document.getElementById(div.id);
@@ -207,6 +213,7 @@
                 var p = document.createElement('p');
                 const text = document.createTextNode("削除");
                 p.className = `delete_mark${childElementCount}`;
+                p.onclick = function(){deleteAddPicture(this);return false;}
                 p.appendChild(text);
                 div_area.appendChild(p);
                 childElementCount++;
@@ -220,10 +227,11 @@
            
            document.deleteform.submit();
         };
-        function deleteTextSubmit(){
-            document.deleteForm.mode.value = "deleteText";
-            document.deleteForm.submit();
-        }
+        function deleteAddPicture(e){
+            var div = document.getElementById(`div_${e.className.substr(11)}`);
+            div.remove();
+        };
+        
         document.getElementById("update_btn").addEventListener("mouseover", function(){
         	document.getElementById("update_discription").style.display = 'block';
         }, false);
@@ -233,8 +241,12 @@
         }, false);
         function pic_delete(e) {
             document.getElementById(`delete_button_${e.className.substr(11)}`).click();
-        }
-            
+        };
+        
+        // function deleteTextSubmit(){
+        //     document.deleteForm.mode.value = "deleteText";
+        //     document.deleteForm.submit();
+        // }
         
     </script>
 </html>

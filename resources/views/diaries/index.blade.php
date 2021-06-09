@@ -11,14 +11,45 @@
         <!-- Styles -->
         <style>
             .diary{
-                border:solid;
+                background-color:#FFFAFA;
                 padding:20px;
-                margin-top:10px;
+                margin-top:30px;
+                box-shadow: 0px 0px 30px -5px rgba(0, 0, 0, 0.8);
             }
             .date {
-                margin:20px;
-                padding:30px;
+                margin:0 20px 20px 0;
+                padding:20px;
                 border:solid;
+                border-width: thin;
+                height:100px;
+                background-color:#FFFACD;
+                box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.8);
+            }
+            .date *{
+                color:red;
+                font-weight:bold;
+                text-align:right;
+                text-shadow:0px 0px 2px #FFF, 4px 4px 2px rgba(0,0,0,0.3);
+            }
+            #text{
+                font-size:medium;
+                height:75px;
+                
+            }
+            .input-group{
+                margin:auto;
+                width:30%;
+                position:fixed;
+                top:40px;
+                left:35%;
+                z-index:500;
+                box-shadow: 0px 10px 10px -5px rgba(0, 0, 0, 0.8);
+            }
+            .error_message{
+                position:fixed;
+                top:30px;
+                left:40%;
+                z-index:500;
             }
             #create_btn{
                 width:5rem;
@@ -63,9 +94,8 @@
         
     </head>
     <body>
-        
-        <div class="w-50 mx-auto">
-            <form action="{{ route('diaries.search') }}" method="get" class="w-50 mx-auto">
+        <div class="text-left">
+            <form action="{{ route('diaries.search') }}" method="get" class="">
                 <div class="input-group">
                 	<input type="text" name="search" class="form-control" placeholder="">
                 	<span class="input-group-btn">
@@ -73,8 +103,8 @@
                 	</span>
                 </div>
                 @error('search')
-                    <span class="" role="alert" style="color:red;">
-                        <strong><br>{{ $message }}</strong>
+                    <span class="error_message" role="alert" style="color:red;">
+                        <strong><br>検索した文字を入力してください</strong>
                     </span>
                 @enderror
             </form>
@@ -82,21 +112,21 @@
                 <h5>{{ $search_result }}</h5>
             @endisset
             @foreach ($diaries as $diary)
-                <div class='diary'>
+                <div class='diary' onclick="DivFrameClick({{ $diary->id }});">
                     <div class="d-flex">
-                        <div class="date">
+                        <div class="date" >
                             <h2 class="time">{{ substr($diary->date,5,2)}}/{{substr($diary->date,8,2) }}</h2>
                             <p class="year">{{ substr($diary->date,0,4) }}</p>
                         </div>
                         <div class="d-flex flex-column">
-                            <h3><a href="{{ route('diaries.show' ,$diary->id)}}">{{ $diary->title }}</a></h3>
-                            <p class='overflow-auto' style="height:150px;">{{ $diary->text }}</p>
+                            <h3 id="title">{{ $diary->title }}</h3>
+                            <p id="text" class='overflow-auto'>{{ $diary->text }}</p>
                         </div>
                     </div>
-                    <div class="overflow-auto d-flex " style="height:150px;">
+                    <div class="overflow-auto d-flex " style="height:120px;">
                         @foreach ($diary->pictures as $picture)
                             <div class="picture mx-2">
-                                <img src="{{ '../storage/image/' . $picture->file_name }}"  width="128" height="128">
+                                <img src="{{ '../storage/image/' . $picture->file_name }}"  width="100" height="100">
                             </div>
                         @endforeach
                     </div>
@@ -122,6 +152,9 @@
         document.getElementById("create_btn").addEventListener("mouseout", function(){
         	document.getElementById("create_discription").style.display = 'none';
         }, false);
+        function DivFrameClick(id) {
+          document.location.href = `/diaries/${id}`;
+        }
     </script>
 </html>
 

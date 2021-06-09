@@ -5,25 +5,35 @@
         <title>日記</title>
         
         <style>
-            /*body {*/
-            /*    background-image: url("/storage/sample_pic.jpg");*/
-            /*    background-size:cover;*/
-            /*}*/
-            body{
-                margin-bottom:100px;
-            }
-            .contents{
-                text-align:center;
-                
-                margin: auto;
+            * {
+                box-sizing: border-box;
             }
             
-            .page_title{
-                margin-bottom:100px;
+            header {
+                width: 100%;
+                padding: 30px 4% 30px;
+                background-color: pink;
+                position:fixed;
+                top:0;
+                z-index:10;
+                box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.8);
+            }
+            .app_title{
+                font-size:5em;
+            	line-height:0.95em;
+            	font-weight:bold;
+            	color: #FFF;
+            	text-shadow: 0 0 0.2em rgba(0,0,0,1);
+            }
+            .contents{
+                width:60%;
+                margin:auto;
+                margin-top:200px;
+                text-align:center;
             }
             .menu-btn {
                 position: fixed;
-                top: 10px;
+                top: 30px;
                 right: 10px;
                 display: flex;
                 height: 60px;
@@ -131,7 +141,7 @@
     </head>
     <body>
         <header>
-            <h1 class="display-2">日記</h1>
+            <h1 class="app_title">日記</h1>
             <div class="hamburger-menu">
                 <!-- チェックボックス -->
                 <input type="checkbox" id="menu-btn-check">
@@ -165,7 +175,7 @@
                 </div>
             </div>
         </header>
-        <div class="contents">
+        <div class="contents" >
             @yield('child')
         </div>
     </body>
