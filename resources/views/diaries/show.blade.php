@@ -109,7 +109,7 @@
     <body>
         <button type="button" id="back_btn" class="btn btn-primary rounded-circle p-0" onclick="location.href='{{ route("diaries.index") }}'"><i class="fas fa-arrow-left fa-2x"></i></button>
         <div id="twitter_btn">
-            <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-lang="ja" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <a href="https://twitter.com/intent/tweet?text={{ $diary->title }}%0a{{ $diary->text }}" target="blank_"><i class="fa fa-twitter fa-3x" aria-hidden="true"></i></a>
         </div>
         <div class="mx-auto">
             <div class='diary w-50 mx-auto'>
