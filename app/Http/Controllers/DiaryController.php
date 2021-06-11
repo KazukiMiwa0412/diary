@@ -44,7 +44,6 @@ class DiaryController extends Controller
         
         $request->validate([
             'diary.date'=>'required',
-            'diary.text'=>'required',
             'diary.title'=>'required',
         ]);
         $diary->title = $request['diary']['title'];
@@ -106,7 +105,6 @@ class DiaryController extends Controller
         
         $request->validate([
             'diary.date'=>'required',
-            'diary.text'=>'required',
             'diary.title'=>'required',
         ]);
         $diary->fill($request['diary'])->save();
