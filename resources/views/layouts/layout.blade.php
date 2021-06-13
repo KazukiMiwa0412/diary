@@ -16,13 +16,15 @@
                 }
                 header {
                     width: 100%;
-                    height:15%;
+                    height:5rem;
                     background-color: pink;
                     position:fixed;
                     top:0;
                     z-index:10;
                     box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.8);
+                    
                 }
+                
             }
             @media screen and (max-width: 768px) {
                 html {
@@ -30,7 +32,7 @@
                 }
                 header {
                     width: 100%;
-                    height:10%;
+                    height:5rem;
                     background-color: pink;
                     position:fixed;
                     top:0;
@@ -44,7 +46,7 @@
                 }
                 header {
                     width: 100%;
-                    height:10%;
+                    height:5rem;
                     background-color: pink;
                     position:fixed;
                     top:0;
@@ -53,21 +55,46 @@
                 }
             }
             
+            .float-right{
+                width:30%;
+                position:absolute;    
+            	left:70%;
+            	bottom:40%;
+            	
+            }
+            .float-right a{
+                font-size:1rem;
+                color:white;
+                font-weight:
+                bold;
+                text-shadow: 0 0 0.2em rgba(0,0,0,1);
+            }
+            .dropdown{
+                position:absolute;    
+            	left:85%;
+            	bottom:60%;
+            	
+            }
+            
+            #dropdownMenu{
+                font-weight:bold;
+            }
             .app_title{
                 font-size:3.125rem;
             	position:relative;
             	top:15%;
             	left:5%;
             	font-weight:bold;
-            	color: #FFF;
+            	color:white;
             	text-shadow: 0 0 0.2em rgba(0,0,0,1);
             }
+            
             
             .contents{
                 width:80%;
                 margin:auto;
-                margin-top:15%;
-                margin-bottom:12%;
+                margin-top:8rem;
+                margin-bottom:2rem;
                 text-align:center;
             }
             
@@ -99,7 +126,49 @@
     <body>
         <header>
             <h1 class="app_title">日記</h1>
+            @guest
+                <div class="float-right">
+                    <a class="nav-link d-inline" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    @if (Route::has('register'))
+                        <a class="nav-link d-inline" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    @endif
+                </div>
+            @else
+                @if($_SERVER['REQUEST_URI']=="/" || $_SERVER['REQUEST_URI']=="/diaries")
+                    <form action="{{ route('diaries.search') }}" method="get" class="">
+                        <div class="input-group">
+                        	<input type="text" name="search" class="form-control" placeholder="">
+                        	<span class="input-group-btn">
+                        		<button type="submit" class="btn btn-primary"><i class="fas fa-search pr-1"></i></button>
+                        	</span>
+                        </div>
+                        @error('search')
+                            <span class="error_message" role="alert" style="color:red;">
+                                <strong><br>検索した文字を入力してください</strong>
+                            </span>
+                        @enderror
+                    </form>
+                @endif
+                
+                <div class="dropdown">
+                    <h3 class="dropdown-toggle" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ Auth::user()->name }}
+                    </h3>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                         document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+    
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </div>
+                </div>
+            @endguest
         </header>
+        
         <div class="contents" >
             @yield('child')
         </div>

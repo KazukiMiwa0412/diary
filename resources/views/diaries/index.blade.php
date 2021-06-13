@@ -18,6 +18,7 @@
                 box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.8);
             }
             .date {
+                height:10%;
                 margin:0 2% 2% 0;
                 padding:2%;
                 border:solid;
@@ -37,17 +38,24 @@
                 position:fixed;
                 top:3%;
                 left:30%;
-                z-index:500;
-                box-shadow: 0px 10px 10px -5px rgba(0, 0, 0, 0.8);
+                z-index:20;
+            }
+            .form-control{
+                height:100%;
+            }
+            
+            @media screen and (max-width: 544px){
+                .input-group{
+                    top:2%;
+                }
             }
             .error_message{
                 position:fixed;
                 top:2%;
                 left:32%;
-                z-index:500;
+                z-index:20;
             }
             #text{
-                
                 height:100%;
                 display: -webkit-box;
             	-webkit-line-clamp: 4;
@@ -99,19 +107,6 @@
     </head>
     <body>
         <div class="text-left">
-            <form action="{{ route('diaries.search') }}" method="get" class="">
-                <div class="input-group">
-                	<input type="text" name="search" class="form-control" placeholder="">
-                	<span class="input-group-btn">
-                		<button type="submit" class="btn btn-primary"><i class="fas fa-search pr-1"></i></button>
-                	</span>
-                </div>
-                @error('search')
-                    <span class="error_message" role="alert" style="color:red;">
-                        <strong><br>検索した文字を入力してください</strong>
-                    </span>
-                @enderror
-            </form>
             @isset($search_result)
                 <h5>{{ $search_result }}</h5>
             @endisset
@@ -160,12 +155,12 @@
           document.location.href = `/diaries/${id}`;
         }
         
+        
         window.addEventListener("DOMContentLoaded",function(){
             var img_elements = document.querySelectorAll("img");
             for (var i=0; i<img_elements.length; i++){
                 img_elements[i].addEventListener('load', function(e) {
                     var diaryHeight = e.target.parentNode.parentNode.parentNode.firstElementChild.clientHeight;
-                    console.log(e.target);
                     e.target.width = diaryHeight;
                     e.target.height = diaryHeight;
                    

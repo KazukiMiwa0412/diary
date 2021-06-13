@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class DiaryController extends Controller
 {
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,9 +22,7 @@ class DiaryController extends Controller
      */
     public function index(Diary $diary)
     {   
-        
         $diary=Diary::where('user_id',Auth::user()->id)->with(['pictures','user'])->orderBy('date', 'DESC')->orderBy('updated_at', 'DESC')->paginate(10);
-        
         return view('diaries.index')->with(['diaries'=> $diary]);
     }
 

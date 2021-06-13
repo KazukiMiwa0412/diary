@@ -13,10 +13,9 @@
 
 
 Route::get('diaries/search','DiaryController@search')->name('diaries.search');
-Route::resource('diaries', 'DiaryController');
-Route::get('/', 'HomeController@index')->name('home.index');
+Route::resource('diaries', 'DiaryController',['except' => ['index']]);
+Route::get('/', 'DiaryController@index')->name('diaries.index');
 
 Route::resource('pictures', 'PictureController');
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
