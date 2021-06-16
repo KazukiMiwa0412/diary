@@ -56,14 +56,16 @@ class DiaryController extends Controller
         $diary->save();
         
         $files = $request['pic'];
-        foreach($files as $file){
-            $array=array(
-                "img" =>$file,
-                "diaries_id"=>$diary->id,
-            );
-            
-            $called = app()->make($picture_controller_path);
-            $called->store($array);
+        if(isset($files)){
+            foreach($files as $file){
+                $array=array(
+                    "img" =>$file,
+                    "diaries_id"=>$diary->id,
+                );
+                
+                $called = app()->make($picture_controller_path);
+                $called->store($array);
+            }
         }
         
         return redirect(route('diaries.show',$diary->id));
