@@ -11,31 +11,32 @@
         <!-- Styles -->
         <style>
             .text textarea {
-                font-size: 15pt;
-                line-height: 31px;
-                padding: 31px;
-            
+                font-size: 1.25rem;
+                line-height: 1.9375rem;
+                padding: 1.9375rem;
+                
                 /* テキストエリアに陰をつける */
                 box-shadow: 0.2em 0.2em 0.5em black;
             
                 /* 罫線描画（各ブラウザ対応）*/
-                background-image: -webkit-linear-gradient(left, white 10px, transparent 10px), -webkit-linear-gradient(right, white 10px, transparent 10px), -webkit-linear-gradient(white 30px, #ccc 30px, #ccc 31px, white 31px);
-                background-image: -moz-linear-gradient(left, white 10px, transparent 10px), -moz-linear-gradient(right, white 10px, transparent 10px), -moz-linear-gradient(white 30px, #ccc 30px, #ccc 31px, white 31px);
-                background-image: -ms-linear-gradient(left, white 10px, transparent 10px), -ms-linear-gradient(right, white 10px, transparent 10px), -ms-linear-gradient(white 30px, #ccc 30px, #ccc 31px, white 31px);
-                background-image: -o-linear-gradient(left, white 10px, transparent 10px), -o-linear-gradient(right, white 10px, transparent 10px), -o-linear-gradient(white 30px, #ccc 30px, #ccc 31px, white 31px);
-                background-image: linear-gradient(left, white 10px, transparent 10px), linear-gradient(right, white 10px, transparent 10px), linear-gradient(white 30px, #ccc 30px, #ccc 31px, white 31px);
-                background-size: 100% 100%, 100% 100%, 100% 31px;
+                background-image: -webkit-linear-gradient(left, white 0.625rem, transparent 0.625rem), -webkit-linear-gradient(right, white 0.625rem, transparent 0.625rem), -webkit-linear-gradient(white 1.875rem, #ccc 1.875rem, #ccc 1.9375rem, white 1.9375rem);
+                background-image: -moz-linear-gradient(left, white 0.625rem, transparent 0.625rem), -moz-linear-gradient(right, white 0.625rem, transparent 0.625rem), -moz-linear-gradient(white 1.875rem, #ccc 1.875rem, #ccc 1.9375rem, white 1.9375rem);
+                background-image: -ms-linear-gradient(left, white 0.625rem, transparent 0.625rem), -ms-linear-gradient(right, white 0.625rem, transparent 0.625rem), -ms-linear-gradient(white 1.875rem, #ccc 1.875rem, #ccc 1.9375rem, white 1.9375rem);
+                background-image: -o-linear-gradient(left, white 0.625rem, transparent 0.625rem), -o-linear-gradient(right, white 0.625rem, transparent 0.625rem), -o-linear-gradient(white 1.875rem, #ccc 1.875rem, #ccc 1.9375rem, white 1.9375rem);
+                background-image: linear-gradient(left, white 0.625rem, transparent 0.625rem), linear-gradient(right, white 0.625rem, transparent 0.625rem), linear-gradient(white 1.875rem, #ccc 1.875rem, #ccc 1.9375rem, white 1.9375rem);
+                background-size: 100% 100%, 100% 100%, 100% 1.9375rem;
                 /* 淡いグレーで枠線を囲む */
-                border: 1px solid #ccc;
+                border: 0.0625rem solid #ccc;
             }
             @media screen { #filename { display: none; } }
             
             .browse_btn {
                 background-color: #d3d3d3;
-                padding: 6px 40px;
+                padding: 6px 30px;
                 border-radius: 8px;
                 font-weight: bold;
-                font-size:25px;
+                font-weight: bold;
+                font-size:1.5rem;
             }
             #back_btn{
                 width:5rem;
@@ -48,7 +49,7 @@
                 cursor: pointer;
                 position: fixed;
                 left: 2%;
-                padding: 6px 40px;
+                padding:1% 3%;
             }
             #back_btn:hover{
                 opacity: 0.9;
@@ -70,7 +71,8 @@
                 position: fixed;
                 bottom: 5%; 
                 right: 1%;
-                padding: 6px 40px;
+                padding:1% 3%;
+                z-index: 3; 
             }
             #store_btn:hover{
                 opacity: 0.9;
@@ -82,43 +84,52 @@
             }
             #store_discription{
                 position: fixed;
-                font-size:20px;
+                font-size:1.25rem;
                 display:none;
                 right: 8%;
                 bottom:3%;
                 border:solid;
                 border-width: thin;
-                padding:10px 80px;
+                padding:0.7% 5.6%;
                 background-color:#CCFFFF;
                 opacity: 0.7;
-                z-index: -1; 
+                z-index: 2; 
             }
+            .class-sunday {
+                color: red !important;
+            }
+            .class-saturday {
+                color: blue !important;
+            }
+
             </style>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
         
-        
-        
     </head>
     <body>
         <button type="button" id="back_btn" class="btn btn-primary rounded-circle p-0" onclick="location.href='{{ route("diaries.index") }}'"><i class="fas fa-arrow-left fa-2x"></i></button>
-        <h1>日記作成</h1>
+        <h1 class="mb-4 font-weight-bold">日記作成</h1>
         <form  action="{{ route("diaries.store") }}" method="POST" enctype="multipart/form-data" autocomplete="off">
             @csrf
             <div>
                 <div class="form-group">
-                    <h2>日付</h2>
+                    <h2 class="mt-4">日付</h2>
                     <i class="fa fa-calendar fa-lg "></i> 
-                    <input name="diary[date]" type="text" id="datepicker" placeholder="日付を選択してください" class="w-25 mx-auto" >
-                    <p class="title__error" style="color:red">{{ $errors->first('diary.date') }}</p>
+                    <input name="diary[date]" type="text" id="datepicker" placeholder="日付を選択してください" class="w-50 mx-auto mb-4" >
+                    @error('diary.date')
+                        <p class="title__error" style="color:red">日付は必ず指定してください</p>
+                    @enderror
                   </div>
             </div>
             
             <div class="title mb-5">
                 <h2>タイトル</h2>
                 <i class="fa fa-pencil fa-lg"></i> 
-                <input type="text" name="diary[title]" placeholder="タイトルを入力してください" class="w-25 mx-auto"/>
-                <p class="title__error" style="color:red">{{ $errors->first('diary.title') }}</p>
+                <input  maxlength="20" type="text" name="diary[title]" placeholder="タイトルを入力してください" class="w-50 mx-auto mb-4"/>
+                @error('diary.title')
+                    <p class="title__error" style="color:red">タイトルは必ず入力してください</p>
+                @enderror
             </div>
             
             <i class="fas fa-paperclip fa-2x"></i>
@@ -128,10 +139,9 @@
             </label>
             <div id="content_area" class="mx-auto"></div>
             
-            <div class="text mt-3">
+            <div class="text mt-5">
                 <h2>本文</h2>
-                <textarea class="form-control w-25 mx-auto" name="diary[text]" placeholder="" rows="10"></textarea>
-                <p class="body__error" style="color:red">{{ $errors->first('diary.text') }}</p>
+                <textarea class="form-control w-50 mx-auto" name="diary[text]" placeholder="" rows="15"></textarea>
             </div>
             
             <input type="hidden" name="diary[user_id]" value="{{ Auth::user()->id }}">
@@ -143,12 +153,31 @@
         </form>
         
     </body>
+    
     <script type="text/javascript">
         $('#datepicker').datepicker({
             language:'ja',
             showAnim: 'show',
             autoclose: true,
-            todayHighlight : true
+            todayHighlight : true,
+            
+            beforeShowDay: function(date) {
+                var myDate = new Object();
+                if (date.getDay() == 0) {
+                  myDate.enabled = true;
+                  myDate.classes = 'class-sunday';
+                  myDate.tooltip  = '日曜日';
+                } else if　(date.getDay() == 6) {
+                  myDate.enabled = true;
+                  myDate.classes = 'class-saturday';
+                  myDate.tooltip  = '土曜日';
+                } else {
+                  myDate.enabled = true;
+                  myDate.classes = 'class-weekday';
+                  myDate.tooltip  = '平日';
+                }
+                return myDate;
+            }
         });
         
         
@@ -184,6 +213,7 @@
         document.getElementById("store_btn").addEventListener("mouseout", function(){
         	document.getElementById("store_discription").style.display = 'none';
         }, false);
+        
     </script>
 </html>
 

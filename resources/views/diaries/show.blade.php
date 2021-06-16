@@ -12,10 +12,14 @@
             
             .diary p{
                 display:inline-block;
-                margin:30px auto 30px;
+                margin:5.5% auto 5.5%;
                 border: 2mm ridge rgba(253,204,255,0.6);
-                font-size:20px;
-                padding:20px 50px;
+                font-size:1.25rem;
+                padding:4% 10%;
+            }
+            .text{
+                white-space: pre-wrap;
+                text-align:left;
             }
             #btn_action button{
                 width:5rem;
@@ -41,10 +45,12 @@
             #edit_btn{
                 bottom: 5%; 
                 right: 1%;
+                z-index: 3; 
             }
             #delete_btn{
-                bottom: 20%; 
+                bottom: 22%; 
                 right: 1%;
+                z-index: 3; 
             }
             #back_btn{
                 width:5rem;
@@ -57,7 +63,7 @@
                 cursor: pointer;
                 position: fixed;
                 left: 2%;
-                padding: 6px 40px;
+                padding:1% 3%;
             }
             #back_btn:hover{
                 opacity: 0.9;
@@ -69,35 +75,35 @@
             }
             #edit_discription{
                 position: fixed;
-                font-size:20px;
+                font-size:1.25rem;
                 display:none;
                 right: 8%;
                 bottom:3%;
                 border:solid;
                 border-width: thin;
-                padding:10px 80px;
+                padding:0.7% 5.6%;
                 background-color:#CBFFD3;
                 opacity: 0.7;
-                z-index: -1; 
+                z-index: 2; 
             }
             #delete_discription{
                 position: fixed;
-                font-size:20px;
+                font-size:1.25rem;
                 display:none;
                 right: 8%;
                 bottom:18%;
                 border:solid;
                 border-width: thin;
-                padding:10px 80px;
+                padding:0.7% 5.6%;
                 background-color:#FFABCE;
                 opacity: 0.7;
-                z-index: -1; 
+                z-index: 2; 
             }
             #twitter_btn{
-                z-index:11;
+                z-index:21;
                 position:fixed;
-                top:50px;
-                right:15%;
+                top:2%;
+                right:30%;
             }
         </style>
         <!-- Fonts -->
@@ -109,20 +115,23 @@
     <body>
         <button type="button" id="back_btn" class="btn btn-primary rounded-circle p-0" onclick="location.href='{{ route("diaries.index") }}'"><i class="fas fa-arrow-left fa-2x"></i></button>
         <div id="twitter_btn">
-            <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-lang="ja" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <a href="https://twitter.com/intent/tweet?text=タイトル：{{ $diary->title }}%0a日付：{{ $diary->date }}%0a{{ str_repeat("=",15) }}%0a{{ $diary->text }}" target="blank_">
+                <i class="fa fa-twitter fa-3x" aria-hidden="true"></i>
+            </a>
+            <p>Twitterに投稿する</p>
         </div>
         <div class="mx-auto">
-            <div class='diary w-50 mx-auto'>
+            <div class='diary w-75 mx-auto'>
                 <h1>タイトル</h1>
                 <p>{{ $diary->title }}</p>
                 <h1>日にち</h1>
                 <p>{{ $diary->date }}</p>
                 @if(count($diary->pictures)>0)
                     <h1>画像</h1>
-                    <div class="mx-auto overflow-auto d-flex p-3" style="border: 2mm ridge rgba(253,204,255,0.6);">
+                    <div class="mx-auto d-block p-3 ">
                         @foreach ($diary->pictures as $picture)
                             <div class="d-inline-flex mx-1">
-                                <img class="mx-auto" src="{{ '../storage/image/' . $picture->file_name }}"  width="128" height="128">
+                                <img class="mx-auto" src="{{ '../storage/image/' . $picture->file_name }}"  width="64" height="64">
                             </div>
                         @endforeach
                     </div>
