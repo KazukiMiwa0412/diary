@@ -34,7 +34,7 @@
             }
             .input-group{
                 margin:auto;
-                width:50%;
+                width:40%;
                 position:fixed;
                 top:3%;
                 left:30%;
@@ -61,10 +61,11 @@
             	-webkit-line-clamp: 4;
             	-webkit-box-orient: vertical;
             	overflow: hidden;
+            	white-space: pre-wrap;
             }
             #create_btn{
-                width:6rem;
-                height:6rem;
+                width:5rem;
+                height:5rem;
                 display: inline-block;
                 line-height: 30px;
                 text-align: center;

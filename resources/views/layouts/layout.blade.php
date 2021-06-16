@@ -24,9 +24,33 @@
                     box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.8);
                     
                 }
+                .dropdown{
+                    position:absolute;    
+                	left:90%;
+                	bottom:55%;
+                }
                 
             }
             @media screen and (max-width: 768px) {
+                html {
+                    font-size: 100%;
+                }
+                header {
+                    width: 100%;
+                    height:5rem;
+                    background-color: pink;
+                    position:fixed;
+                    top:0;
+                    z-index:10;
+                    box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.8);
+                }
+                .dropdown{
+                    position:absolute;    
+                	left:80%;
+                	bottom:55%;
+                }
+            }
+            @media screen and (max-width: 544px) {
                 html {
                     font-size: 75%;
                 }
@@ -39,19 +63,10 @@
                     z-index:10;
                     box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.8);
                 }
-            }
-            @media screen and (max-width: 544px) {
-                html {
-                    font-size: 50%;
-                }
-                header {
-                    width: 100%;
-                    height:5rem;
-                    background-color: pink;
-                    position:fixed;
-                    top:0;
-                    z-index:10;
-                    box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.8);
+                .dropdown{
+                    position:absolute;    
+                	left:80%;
+                	bottom:55%;
                 }
             }
             
@@ -65,15 +80,8 @@
             .float-right a{
                 font-size:1rem;
                 color:white;
-                font-weight:
-                bold;
+                font-weight:bold;
                 text-shadow: 0 0 0.2em rgba(0,0,0,1);
-            }
-            .dropdown{
-                position:absolute;    
-            	left:85%;
-            	bottom:60%;
-            	
             }
             
             #dropdownMenu{
@@ -151,9 +159,9 @@
                 @endif
                 
                 <div class="dropdown">
-                    <h3 class="dropdown-toggle" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <h5 class="dropdown-toggle" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ Auth::user()->name }}
-                    </h3>
+                    </h5>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('logout') }}"
                            onclick="event.preventDefault();

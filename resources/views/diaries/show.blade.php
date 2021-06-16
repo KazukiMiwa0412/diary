@@ -17,9 +17,13 @@
                 font-size:1.25rem;
                 padding:4% 10%;
             }
+            .text{
+                white-space: pre-wrap;
+                text-align:left;
+            }
             #btn_action button{
-                width:6rem;
-                height:6rem;
+                width:5rem;
+                height:5rem;
                 display: inline-block;
                 line-height: 30px;
                 text-align: center;
@@ -44,13 +48,13 @@
                 z-index: 3; 
             }
             #delete_btn{
-                bottom: 20%; 
+                bottom: 22%; 
                 right: 1%;
                 z-index: 3; 
             }
             #back_btn{
-                width:6rem;
-                height:6rem;
+                width:5rem;
+                height:5rem;
                 display: inline-block;
                 line-height: 30px;
                 text-align: center;
@@ -96,10 +100,10 @@
                 z-index: 2; 
             }
             #twitter_btn{
-                z-index:11;
+                z-index:21;
                 position:fixed;
                 top:2%;
-                right:15%;
+                right:30%;
             }
         </style>
         <!-- Fonts -->

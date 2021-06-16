@@ -54,8 +54,8 @@
                 box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.8);
             }
             #update_btn{
-                width:6rem;
-                height:6rem;
+                width:5rem;
+                height:5rem;
                 display: inline-block;
                 line-height: 30px;
                 text-align: center;
@@ -92,8 +92,8 @@
                 z-index: 2; 
             }
             #back_btn{
-                width:6rem;
-                height:6rem;
+                width:5rem;
+                height:5rem;
                 display: inline-block;
                 line-height: 30px;
                 text-align: center;
@@ -170,7 +170,7 @@
             
             <div class="text mt-3">
                 <h2>Text</h2>
-                <textarea id="text" class="form-control w-75 mx-auto" name="diary[text]"  rows="10">{{$diary->text}}</textarea>
+                <textarea id="text" class="form-control w-75 mx-auto" name="diary[text]"  rows="15">{{$diary->text}}</textarea>
             </div>
             
             <button type="submit" id="update_btn" class="btn btn-secondary rounded-circle p-0" onclick="location.href='{{ route('diaries.show' , $diary->id) }}'" >
@@ -191,10 +191,9 @@
                 </form>
                 <?php $i++; ?>
             @endforeach
-            
         </div>
-        
     </body>
+    
     <script type="text/javascript">
         $('#datepicker').datepicker({
             language:'ja',
@@ -281,6 +280,10 @@
             document.getElementById(`delete_button_${e.parentNode.id.substr(4)}`).click();
         };
         
+        
+        
     </script>
 </html>
 @endsection
+
+

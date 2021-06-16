@@ -14,7 +14,7 @@
                 font-size: 1.25rem;
                 line-height: 1.9375rem;
                 padding: 1.9375rem;
-            
+                
                 /* テキストエリアに陰をつける */
                 box-shadow: 0.2em 0.2em 0.5em black;
             
@@ -39,8 +39,8 @@
                 font-size:1.5rem;
             }
             #back_btn{
-                width:6rem;
-                height:6rem;
+                width:5rem;
+                height:5rem;
                 display: inline-block;
                 line-height: 30px;
                 text-align: center;
@@ -60,8 +60,8 @@
                 box-shadow: none;
             }
             #store_btn{
-                width:6rem;
-                height:6rem;
+                width:5rem;
+                height:5rem;
                 display: inline-block;
                 line-height: 30px;
                 text-align: center;
@@ -106,19 +106,17 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
         
-        
-        
     </head>
     <body>
         <button type="button" id="back_btn" class="btn btn-primary rounded-circle p-0" onclick="location.href='{{ route("diaries.index") }}'"><i class="fas fa-arrow-left fa-2x"></i></button>
-        <h1>日記作成</h1>
+        <h1 class="mb-4 font-weight-bold">日記作成</h1>
         <form  action="{{ route("diaries.store") }}" method="POST" enctype="multipart/form-data" autocomplete="off">
             @csrf
             <div>
                 <div class="form-group">
-                    <h2>日付</h2>
+                    <h2 class="mt-4">日付</h2>
                     <i class="fa fa-calendar fa-lg "></i> 
-                    <input name="diary[date]" type="text" id="datepicker" placeholder="日付を選択してください" class="w-25 mx-auto" >
+                    <input name="diary[date]" type="text" id="datepicker" placeholder="日付を選択してください" class="w-50 mx-auto mb-4" >
                     @error('diary.date')
                         <p class="title__error" style="color:red">日付は必ず指定してください</p>
                     @enderror
@@ -128,7 +126,7 @@
             <div class="title mb-5">
                 <h2>タイトル</h2>
                 <i class="fa fa-pencil fa-lg"></i> 
-                <input type="text" name="diary[title]" placeholder="タイトルを入力してください" class="w-25 mx-auto"/>
+                <input  maxlength="20" type="text" name="diary[title]" placeholder="タイトルを入力してください" class="w-50 mx-auto mb-4"/>
                 @error('diary.title')
                     <p class="title__error" style="color:red">タイトルは必ず入力してください</p>
                 @enderror
@@ -141,9 +139,9 @@
             </label>
             <div id="content_area" class="mx-auto"></div>
             
-            <div class="text mt-3">
+            <div class="text mt-5">
                 <h2>本文</h2>
-                <textarea class="form-control w-50 mx-auto" name="diary[text]" placeholder="" rows="10"></textarea>
+                <textarea class="form-control w-50 mx-auto" name="diary[text]" placeholder="" rows="15"></textarea>
             </div>
             
             <input type="hidden" name="diary[user_id]" value="{{ Auth::user()->id }}">
@@ -155,6 +153,7 @@
         </form>
         
     </body>
+    
     <script type="text/javascript">
         $('#datepicker').datepicker({
             language:'ja',
@@ -214,6 +213,7 @@
         document.getElementById("store_btn").addEventListener("mouseout", function(){
         	document.getElementById("store_discription").style.display = 'none';
         }, false);
+        
     </script>
 </html>
 
