@@ -111,6 +111,7 @@
             @isset($search_result)
                 <h5>{{ $search_result }}</h5>
             @endisset
+            
             @foreach ($diaries as $diary)
                 <div class='diary' onclick="DivFrameClick({{ $diary->id }});">
                     <div class="d-flex">
@@ -126,7 +127,7 @@
                     <div class="overflow-auto d-flex " style="height:10%;">
                         @foreach ($diary->pictures as $picture)
                             <div class="picture mx-2">
-                                <img src="{{ '../storage/image/' . $picture->file_name }}"  width="64" height="64">
+                                <img src="{{ 'https://diaryiamge.s3.ap-northeast-1.amazonaws.com/' . $picture->file_name }}"  width="64" height="64">
                             </div>
                         @endforeach
                     </div>

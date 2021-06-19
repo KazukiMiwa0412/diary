@@ -161,7 +161,7 @@
                 <?php $i=0; ?>
                 @foreach ($diary->pictures as $picture)
                     <div id="div_{{ $i }}" class="d-inline-block">
-                        <img class="d-block mx-3" src="{{ '/storage/image/' . $picture->file_name }}"  width="64" height="64">
+                        <img class="d-block mx-3" src="{{ 'https://diaryiamge.s3.ap-northeast-1.amazonaws.com/' . $picture->file_name }}"  width="64" height="64">
                         <p onClick="pic_delete(this);" class="delete_mark{{ $i }} d-block mx-2" name="delete_button">削除</p>
                     </div>
                     <?php $i++; ?>

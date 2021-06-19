@@ -131,7 +131,7 @@
                     <div class="mx-auto d-block p-3 ">
                         @foreach ($diary->pictures as $picture)
                             <div class="d-inline-flex mx-1">
-                                <img class="mx-auto" src="{{ '../storage/image/' . $picture->file_name }}"  width="64" height="64">
+                                <img class="mx-auto" src="{{ 'https://diaryiamge.s3.ap-northeast-1.amazonaws.com/' . $picture->file_name }}"  width="64" height="64">
                             </div>
                         @endforeach
                     </div>
