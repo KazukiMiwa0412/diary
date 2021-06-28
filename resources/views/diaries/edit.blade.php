@@ -170,7 +170,7 @@
             
             <div class="text mt-3">
                 <h2>Text</h2>
-                <textarea id="text" class="form-control w-75 mx-auto" name="diary[text]"  rows="15">{{$diary->text}}</textarea>
+                <textarea id="text" class="form-control mx-auto" name="diary[text]"  rows="15">{{$diary->text}}</textarea>
             </div>
             
             <button type="submit" id="update_btn" class="btn btn-secondary rounded-circle p-0" onclick="location.href='{{ route('diaries.show' , $diary->id) }}'" >

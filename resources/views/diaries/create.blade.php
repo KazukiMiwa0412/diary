@@ -141,7 +141,7 @@
             
             <div class="text mt-5">
                 <h2>本文</h2>
-                <textarea class="form-control w-50 mx-auto" name="diary[text]" placeholder="" rows="15"></textarea>
+                <textarea class="form-control  mx-auto" name="diary[text]" placeholder="" rows="15"></textarea>
             </div>
             
             <input type="hidden" name="diary[user_id]" value="{{ Auth::user()->id }}">
