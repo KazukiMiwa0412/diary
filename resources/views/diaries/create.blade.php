@@ -126,7 +126,7 @@
             <div class="title mb-5">
                 <h2>タイトル</h2>
                 <i class="fa fa-pencil fa-lg"></i> 
-                <input  maxlength="20" type="text" name="diary[title]" placeholder="タイトルを入力してください" class="w-50 mx-auto mb-4"/>
+                <input  type="text" name="diary[title]" placeholder="タイトルを入力してください" class="w-50 mx-auto mb-4"/>
                 @error('diary.title')
                     <p class="title__error" style="color:red">タイトルは必ず入力してください</p>
                 @enderror

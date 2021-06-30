@@ -112,6 +112,7 @@ class DiaryController extends Controller
             'diary.date'=>'required',
             'diary.title'=>'required',
         ]);
+        
         $diary->fill($request['diary'])->save();
         $files = $request['pic'];
         if(isset($files)){
